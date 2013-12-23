@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+/**
+ * Neste exemplo nós identificamos que função chamou uma outra função.
+ * Com isso será possível por exemplo:
+ *
+ * Para membros privados:
+ * ----------------------
+ *   Ao criar a classe nós podemos setar todas as propriedades com
+ *   Getter e Setter, onde esses verificam quem o chamou antes de
+ *   atribuir ou servir o valor em questão. Se o objeto chamador
+ *   for uma função do próprio objeto (do mesmo escopo) o valor pode
+ *   ser servido/atribuído.
+ */
+-->
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Estudos sobre JavaScript/ECMA-Script 6</title>
+	<script>
+	var objeto = {
+	    setter: function(v)
+		{
+		    alert('setando: ' + v);
+			if(this.isinternal(this.setter.caller))
+			    alert('Chamado internamente');
+		    else
+			    alert('Chamado externamente');
+		},
+		
+		isinternal: function(f)
+		{
+		    for(var m in this)
+			    if(this[m] == f)
+				    return true;
+		    return false;
+		},
+		
+		usasetter: function()
+		{
+		    this.setter('outro valor');
+		}
+	};
+	
+	objeto.setter('valor');
+	objeto.usasetter();
+	
+	</script>
+</head>
+<body>
+</body>
+</html>
